@@ -1,0 +1,14 @@
+{
+  "package": "net.dolpen.mod.toys.mixin",
+  "required": true,
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "net.dolpen.mod.toys.mixin.ToysMixinPlugin",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "conformVisibility": true
+  },
+  "client": [
+  ]
+}

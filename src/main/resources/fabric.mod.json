@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "utilities modification for vanilla client",
+  "authors": [
+    {
+      "name": "@dolpen",
+      "contact": {
+        "email": "dolpen@dolpen.net",
+        "homepage": "https://www.dolpen.net"
+      }
+    }
+  ],
+  "contributors": [
+    "@dolpen"
+  ],
+  "contact": {
+    "homepage": "https://github.com/dolpen/${name}-fabric",
+    "sources": "https://github.com/dolpen/${name}-fabric",
+    "issues": "https://github.com/dolpen/${name}-fabric/issues"
+  },
+  "license": "CC0",
+  "icon": "assets/toys/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "${main}"
+    ]
+  },
+  "custom": {
+  },
+  "accessWidener": "${id}.accesswidener",
+  "mixins": [
+    "${id}.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "${mc_version}"
+  }
+}
