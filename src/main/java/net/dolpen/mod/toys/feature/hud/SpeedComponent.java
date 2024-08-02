@@ -14,14 +14,9 @@ public class SpeedComponent implements HudComponent {
   private static final int LENGTH = 13;
 
   private final Minecraft client;
-  private final Point offset;
 
   public SpeedComponent(Minecraft client) {
     this.client = client;
-    this.offset =
-        new Point(
-            TextRenderer.offsetUnderScore(client.font, LENGTH),
-            (int) (client.font.lineHeight * 0.2));
   }
 
   @Override
@@ -33,6 +28,10 @@ public class SpeedComponent implements HudComponent {
     if (!Axis.isFlying(player)) {
       return;
     }
+    Point offset =
+        new Point(
+            TextRenderer.offsetUnderScore(client.font, LENGTH),
+            (int) (client.font.lineHeight * 0.2));
     TextRenderer.renderRightAlignment(
         guiGraphics,
         offset.join(TextRenderer.center(guiGraphics)),
