@@ -11,7 +11,7 @@ import net.minecraft.client.player.LocalPlayer;
 
 public class SpeedComponent implements HudComponent {
 
-  private static final int LENGTH = 13;
+  private static final int LENGTH = 10;
 
   private final Minecraft client;
 

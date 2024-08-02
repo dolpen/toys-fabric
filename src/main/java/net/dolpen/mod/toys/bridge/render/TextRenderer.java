@@ -14,7 +14,7 @@ public class TextRenderer {
 
   public static void renderRightAlignment(
       GuiGraphics guiGraphics, Point p, String content, Font font, Color color) {
-    render(guiGraphics, p.withX(font.width(content)), content, font, color);
+    render(guiGraphics, p.withX(-font.width(content)), content, font, color);
   }
 
   public static int offsetUnderScore(Font font, int length) {
