@@ -17,13 +17,15 @@ public class Dicon {
   private static final Map<String, Supplier<?>> SUPPLIERS = new HashMap<>();
   private static final Map<String, Object> INSTANCES = new HashMap<>();
 
+  public static void init(Class<?> base) {
+    AutoInjector.process(base);
+    (new ModModuleProcessor(base)).process();
+  }
+
   public static void register(Class<?> clazz) {
     Stream.of(clazz.getConstructors())
         .filter(constructor -> constructor.getParameterCount() > 0)
-        .forEach(
-            nullableConstructor -> {
-              CONSTRUCTORS.put(clazz.getName(), nullableConstructor);
-            });
+        .forEach(nullableConstructor -> CONSTRUCTORS.put(clazz.getName(), nullableConstructor));
   }
 
   public static <T> void registerSupplier(Class<T> clazz, Supplier<T> supplier) {
