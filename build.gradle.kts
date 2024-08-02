@@ -13,12 +13,14 @@ fun provideAsString(provider: Provider<String>): String = provider.getOrElse("N/
 
 /**
  * 各種バージョン
- * 依存に関するものは libs.versions.toml から
- * modの設定に関しては gradle.properties から
  */
+
+// dependency versions from libs.versions.toml
 val mcVersion: String = provideAsString(libs.versions.minecraft)
 val loaderVersion: String = provideAsString(libs.versions.fabricLoader)
 val apiVersion: String = provideAsString(libs.versions.fabricApi)
+
+// mod settings from gradle.properties
 val modId: String = propertyAsString("mod_id")
 val modGroup: String = propertyAsString("mod_group")
 val modName: String = propertyAsString("mod_name")
@@ -44,7 +46,7 @@ fun createVersionString(): String {
 plugins {
     // environment automation plugin for mod development
     alias(libs.plugins.fabric.loom)
-    // code format plugin
+    // code format plugin, independent of IDE
     alias(libs.plugins.spotless)
 }
 
