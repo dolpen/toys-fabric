@@ -3,7 +3,7 @@
   "id": "${id}",
   "version": "${version}",
   "name": "${name}",
-  "description": "utilities modification for vanilla client",
+  "description": "pure client-side utilities",
   "authors": [
     {
       "name": "@dolpen",
