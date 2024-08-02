@@ -6,4 +6,4 @@ import net.minecraft.client.gui.GuiGraphics;
 
 // HudRenderCallback.EVENT.register
 @FunctionalInterface
-public interface HudComponent extends BiConsumer<GuiGraphics, DeltaTracker> {}
+interface HudComponent extends BiConsumer<GuiGraphics, DeltaTracker> {}

@@ -19,18 +19,22 @@ class FileClassScanner extends ClassScanner {
     final String resourceName = toResourceName(packageName);
     final URL root = Objects.requireNonNull(getClassLoader().getResource(resourceName));
     try (Stream<Path> files = Files.walk(Paths.get(root.toURI()))) {
+
       return files
-          .map(Path::toFile)
-          .filter(File::isFile)
-          .map(File::getAbsolutePath)
+          .filter(Files::isRegularFile)
+          .map(Path::toString)
           .filter(path -> !path.contains("$"))
-          .map(path -> path.replaceAll("^.*" + resourceName, resourceName))
+          .map(FileClassScanner::fromFilePath)
+          .map(path -> path.replaceAll("^.*" + packageName, packageName))
           .map(path -> path.replaceAll(".class$", ""))
-          .map(ClassScanner::toPackageName)
           .map(fullName -> uncheckCall(() -> Class.forName(fullName)))
           .collect(Collectors.toList());
     } catch (IOException | URISyntaxException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private static String fromFilePath(final String filePath) {
+    return filePath.replace(File.separatorChar, PACKAGE_DELIMITER);
   }
 }

@@ -2,12 +2,13 @@ package net.dolpen.mod.toys.feature.hud;
 
 import java.awt.*;
 import net.dolpen.mod.toys.bridge.data.Axis;
+import net.dolpen.mod.toys.core.stereotype.Component;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 
-public class PitchComponent implements HudComponent {
+public class PitchComponent implements HudComponent, Component {
   private final Minecraft client;
 
   public PitchComponent(Minecraft client) {

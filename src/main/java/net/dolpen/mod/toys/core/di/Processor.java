@@ -1,6 +1,7 @@
 package net.dolpen.mod.toys.core.di;
 
-import java.util.Arrays;
+import java.util.function.Predicate;
+import net.dolpen.mod.toys.core.scan.ClassFilter;
 import net.dolpen.mod.toys.core.scan.ClassFinder;
 
 public abstract class Processor<I> {
@@ -15,11 +16,9 @@ public abstract class Processor<I> {
 
   @SuppressWarnings("unchecked")
   protected void process() {
+    Predicate<Class<?>> filter = ClassFilter.hasInterfaceOf(interfaceClass);
     ClassFinder.list(base).stream()
-        .filter(
-            clazz ->
-                Arrays.stream(clazz.getInterfaces())
-                    .anyMatch(interfaceClass -> interfaceClass.isAssignableFrom(interfaceClass)))
+        .filter(filter)
         .map(c -> (Class<I>) c)
         .forEach(this::processEach);
   }

@@ -5,7 +5,7 @@ import java.util.concurrent.Callable;
 
 abstract class ClassScanner {
   private static final char RESOURCE_DELIMITER = '/';
-  private static final char PACKAGE_DELIMITER = '.';
+  protected static final char PACKAGE_DELIMITER = '.';
 
   abstract List<Class<?>> scan(String packageName);
 

@@ -1,18 +1,20 @@
 package net.dolpen.mod.toys.feature.hud;
 
 import java.util.List;
-import net.dolpen.mod.toys.core.di.Dicon;
+import net.dolpen.mod.toys.core.stereotype.ModModule;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
-public class Hud {
+@SuppressWarnings("unused")
+public class Hud implements ModModule {
 
-  static final List<HudComponent> COMPONENTS =
-      List.of(Dicon.getInstance(SpeedComponent.class), Dicon.getInstance(PitchComponent.class));
+  private final List<HudComponent> components;
 
-  public static void execute() {
-    COMPONENTS.forEach(
-        component -> {
-          HudRenderCallback.EVENT.register(component::accept);
-        });
+  public Hud(SpeedComponent speedComponent, PitchComponent pitchComponent) {
+    components = List.of(speedComponent, pitchComponent);
+  }
+
+  @Override
+  public void init() {
+    components.forEach(component -> HudRenderCallback.EVENT.register(component::accept));
   }
 }

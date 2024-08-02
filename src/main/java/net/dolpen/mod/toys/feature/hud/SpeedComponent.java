@@ -1,13 +1,13 @@
 package net.dolpen.mod.toys.feature.hud;
 
-import java.awt.*;
 import net.dolpen.mod.toys.bridge.data.Axis;
+import net.dolpen.mod.toys.core.stereotype.Component;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 
-public class SpeedComponent implements HudComponent {
+public class SpeedComponent implements HudComponent, Component {
   private final Minecraft client;
 
   public SpeedComponent(Minecraft client) {

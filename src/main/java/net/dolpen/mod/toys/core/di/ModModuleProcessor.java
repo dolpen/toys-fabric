@@ -14,7 +14,7 @@ public class ModModuleProcessor extends Processor<ModModule> {
 
   @Override
   void processEach(Class<ModModule> input) {
-    LOG.debug("loading module : {}", input.getSimpleName());
+    LOG.info("loading module : {}", input.getSimpleName());
     Dicon.getInstance(input).init();
   }
 }
