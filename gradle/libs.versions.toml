@@ -1,12 +1,12 @@
 [versions]
-minecraft = "1.21.5"
-fabricLoader = "0.16.10"
+minecraft = "1.21.6"
+fabricLoader = "0.16.14"
 # https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/
-fabricApi = "0.119.6+1.21.5"
+fabricApi = "0.127.1+1.21.6"
 # https://maven.fabricmc.net/fabric-loom/fabric-loom.gradle.plugin/
 fabricLoom = "1.10.5"
-spotless = "7.0.0.BETA1"
-googleJavaFormat = "1.22.0"
+spotless = "7.0.4"
+googleJavaFormat = "1.27.0"
 
 
 [libraries]
