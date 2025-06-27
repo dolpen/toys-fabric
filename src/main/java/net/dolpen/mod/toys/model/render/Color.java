@@ -13,6 +13,10 @@ public record Color(int value) {
   public static final Color BLUE = ofRGB(0, 0, 255);
 
   public static Color ofRGB(int r, int g, int b) {
-    return new Color(((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF));
+    return ofRGBA(r, g, b, 255);
+  }
+
+  public static Color ofRGBA(int r, int g, int b, int a) {
+    return new Color(((a & 0xFF) << 24) | ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF));
   }
 }
