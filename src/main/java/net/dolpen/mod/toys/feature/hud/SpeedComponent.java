@@ -9,15 +9,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 
-public class SpeedComponent implements HudComponent {
+public record SpeedComponent(Minecraft client) implements HudComponent {
 
   private static final int LENGTH = 10;
-
-  private final Minecraft client;
-
-  public SpeedComponent(Minecraft client) {
-    this.client = client;
-  }
 
   @Override
   public void accept(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
@@ -29,14 +23,14 @@ public class SpeedComponent implements HudComponent {
       return;
     }
     Point offset =
-        new Point(
-            TextRenderer.offsetUnderScore(client.font, LENGTH),
-            (int) (client.font.lineHeight * 0.2));
+            new Point(
+                    TextRenderer.offsetUnderScore(client.font, LENGTH),
+                    (int) (client.font.lineHeight * 0.2));
     TextRenderer.renderRightAlignment(
-        guiGraphics,
-        offset.join(TextRenderer.center(guiGraphics)),
-        Axis.getSpeed(player),
-        client.font,
-        Color.WHITE);
+            guiGraphics,
+            offset.join(TextRenderer.center(guiGraphics)),
+            Axis.getSpeed(player),
+            client.font,
+            Color.WHITE);
   }
 }

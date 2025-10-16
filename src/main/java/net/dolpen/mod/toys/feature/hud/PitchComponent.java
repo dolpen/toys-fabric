@@ -9,13 +9,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 
-public class PitchComponent implements HudComponent {
+public record PitchComponent(Minecraft client) implements HudComponent {
   private static final int LENGTH = 5;
-  private final Minecraft client;
-
-  public PitchComponent(Minecraft client) {
-    this.client = client;
-  }
 
   @Override
   public void accept(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
@@ -28,12 +23,12 @@ public class PitchComponent implements HudComponent {
     }
     int pitch = Axis.getPitch(player);
     Point offset =
-        new Point(TextRenderer.offsetUnderScore(client.font, LENGTH), -client.font.lineHeight);
+            new Point(TextRenderer.offsetUnderScore(client.font, LENGTH), -client.font.lineHeight);
     TextRenderer.renderRightAlignment(
-        guiGraphics,
-        offset.join(TextRenderer.center(guiGraphics)),
-        String.format("%3d", pitch),
-        client.font,
-        pitch >= 0 ? Color.GREEN : Color.RED);
+            guiGraphics,
+            offset.join(TextRenderer.center(guiGraphics)),
+            String.format("%3d", pitch),
+            client.font,
+            pitch >= 0 ? Color.GREEN : Color.RED);
   }
 }
