@@ -11,6 +11,7 @@ public record Color(int value) {
   public static final Color RED = ofRGB(255, 0, 0);
   public static final Color GREEN = ofRGB(0, 255, 0);
   public static final Color BLUE = ofRGB(0, 0, 255);
+  public static final Color YELLOW = ofRGB(255, 255, 0);
 
   public static Color ofRGB(int r, int g, int b) {
     return ofRGBA(r, g, b, 255);

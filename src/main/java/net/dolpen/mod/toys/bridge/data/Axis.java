@@ -1,5 +1,6 @@
 package net.dolpen.mod.toys.bridge.data;
 
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.FireworkRocketItem;
@@ -8,9 +9,16 @@ import net.minecraft.world.item.component.Fireworks;
 
 public class Axis {
 
-  public static String getSpeed(LocalPlayer player) {
+  /**
+   * 水平移動速度の取得
+   *
+   * @param player クライアントで操作中のプレイヤー情報
+   * @param deltaTracker ゲームループの差分管理オブジェクト
+   * @return 水平移動速度[block/sec]
+   */
+  public static double getSpeed(LocalPlayer player, DeltaTracker deltaTracker) {
     double moveDistance = player.getDeltaMovement().horizontalDistance();
-    return String.format("%3.2f m/s", moveDistance / 0.05f);
+    return moveDistance / deltaTracker.getRealtimeDeltaTicks();
   }
 
   /**
@@ -29,7 +37,7 @@ public class Axis {
    * @param player クライアントで操作中のプレイヤー情報
    * @return このティックに使用されてなければ0、使用された場合はその飛行距離データ
    */
-  public static int isUsingFireworkWhileFlying(LocalPlayer player) {
+  public static int getFireworkRocketLevel(LocalPlayer player) {
     // 飛行してないのに花火使ってもただ打ち上げるだけなので無効
     if (!isFlying(player)) return 0;
     // このティックにアイテム使用中であること

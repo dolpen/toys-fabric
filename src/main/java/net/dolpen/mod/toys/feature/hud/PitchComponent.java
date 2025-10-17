@@ -23,12 +23,12 @@ public record PitchComponent(Minecraft client) implements HudComponent {
     }
     int pitch = Axis.getPitch(player);
     Point offset =
-            new Point(TextRenderer.offsetUnderScore(client.font, LENGTH), -client.font.lineHeight);
+        new Point(TextRenderer.offsetUnderScore(client.font, LENGTH), -client.font.lineHeight);
     TextRenderer.renderRightAlignment(
-            guiGraphics,
-            offset.join(TextRenderer.center(guiGraphics)),
-            String.format("%3d", pitch),
-            client.font,
-            pitch >= 0 ? Color.GREEN : Color.RED);
+        guiGraphics,
+        offset.join(TextRenderer.center(guiGraphics)),
+        String.format("%3d", pitch),
+        client.font,
+        pitch >= 0 ? Color.GREEN : Color.RED);
   }
 }
