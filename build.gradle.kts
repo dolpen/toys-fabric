@@ -102,7 +102,7 @@ spotless {
 
 
 tasks {
-    create("echoVersion") {
+    register("echoVersion") {
         println(createVersionString())
         println("$modName - $modGroup:$modId:$modVersion")
     }

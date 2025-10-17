@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("unused")
 public class Main implements ClientModInitializer {
 
+  public static final String NAMESPACE = "dolpentoys";
   private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
   @Override
