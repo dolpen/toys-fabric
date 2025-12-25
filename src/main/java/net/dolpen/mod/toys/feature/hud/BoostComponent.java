@@ -1,11 +1,17 @@
 package net.dolpen.mod.toys.feature.hud;
 
 import net.dolpen.mod.toys.bridge.data.Axis;
-import net.dolpen.mod.toys.bridge.render.TextRenderer;
+import net.dolpen.mod.toys.feature.hud.part.Gauge;
+import net.dolpen.mod.toys.feature.hud.task.RectTask;
+import net.dolpen.mod.toys.feature.hud.task.ShapeStyle;
+import net.dolpen.mod.toys.feature.hud.util.Renderer;
+import net.dolpen.mod.toys.model.geometry.Dimension;
 import net.dolpen.mod.toys.model.geometry.Point;
+import net.dolpen.mod.toys.model.geometry.Rect;
 import net.dolpen.mod.toys.model.render.Color;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 
@@ -18,14 +24,20 @@ public class BoostComponent implements HudComponent {
    */
   private static final int RANDOM_PART = 11;
 
-  private static final int STATIC_PART = (1 + 3) * 10;
-  private static final int LENGTH = 10;
+  private static final int GAUGE_LENGTH = 100;
 
   private final Minecraft client;
+  private final Rect rect;
+  private final Gauge gauge = new Gauge(0, RANDOM_PART + 10 * 3);
   private int boostTick = 0;
 
   public BoostComponent(Minecraft client) {
     this.client = client;
+    Font font = client.font;
+    this.rect =
+        new Rect(
+            new Point(0, (int) (font.lineHeight * 1.2)),
+            new Dimension(GAUGE_LENGTH, font.lineHeight));
   }
 
   /** ロケット状態 */
@@ -75,15 +87,16 @@ public class BoostComponent implements HudComponent {
     }
     int boostLevel = Axis.getFireworkRocketLevel(player);
     tickBoost(boostLevel);
-    Point offset =
-        new Point(
-            TextRenderer.offsetUnderScore(client.font, LENGTH),
-            (int) (client.font.lineHeight * 1.2));
-    TextRenderer.renderRightAlignment(
-        guiGraphics,
-        offset.join(TextRenderer.center(guiGraphics)),
-        String.format("%2d", this.boostTick),
-        client.font,
-        this.getBoostState().color);
+    Renderer renderer = new Renderer(guiGraphics);
+    renderer.accept(
+        new RectTask(
+            new Rect(
+                rect.point(),
+                new Dimension(
+                    gauge.getPosition(this.boostTick, rect.dimension().width()),
+                    rect.dimension().height())),
+            this.getBoostState().color,
+            ShapeStyle.FILL));
+    renderer.accept(new RectTask(rect, Color.WHITE, ShapeStyle.STROKE));
   }
 }
