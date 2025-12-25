@@ -11,14 +11,17 @@ import net.minecraft.resources.ResourceLocation;
 public class Hud implements ModModule {
 
   private final List<HudComponent> components;
+  @SuppressWarnings("FieldCanBeLocal")
   private final String NAME = "hud";
 
-  public Hud(SpeedComponent speedComponent, PitchComponent pitchComponent) {
-    components = List.of(speedComponent, pitchComponent);
+  public Hud(
+      SpeedComponent speedComponent, PitchComponent pitchComponent, BoostComponent boostComponent) {
+    components = List.of(speedComponent, pitchComponent, boostComponent);
   }
 
   @Override
   public void init() {
+
     HudElementRegistry.attachElementAfter(
         VanillaHudElements.CROSSHAIR,
         ResourceLocation.fromNamespaceAndPath(Main.NAMESPACE, NAME),
