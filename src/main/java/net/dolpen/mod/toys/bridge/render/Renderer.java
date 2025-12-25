@@ -1,4 +1,4 @@
-package net.dolpen.mod.toys.feature.hud.util;
+package net.dolpen.mod.toys.bridge.render;
 
 import net.dolpen.mod.toys.feature.hud.task.RectTask;
 import net.dolpen.mod.toys.feature.hud.task.StringTask;

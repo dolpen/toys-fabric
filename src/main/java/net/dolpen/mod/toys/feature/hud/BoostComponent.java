@@ -1,17 +1,17 @@
 package net.dolpen.mod.toys.feature.hud;
 
 import net.dolpen.mod.toys.bridge.data.Axis;
+import net.dolpen.mod.toys.bridge.render.Fonts;
+import net.dolpen.mod.toys.bridge.render.Renderer;
 import net.dolpen.mod.toys.feature.hud.part.Gauge;
 import net.dolpen.mod.toys.feature.hud.task.RectTask;
 import net.dolpen.mod.toys.feature.hud.task.ShapeStyle;
-import net.dolpen.mod.toys.feature.hud.util.Renderer;
 import net.dolpen.mod.toys.model.geometry.Dimension;
 import net.dolpen.mod.toys.model.geometry.Point;
 import net.dolpen.mod.toys.model.geometry.Rect;
 import net.dolpen.mod.toys.model.render.Color;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 
@@ -24,20 +24,12 @@ public class BoostComponent implements HudComponent {
    */
   private static final int RANDOM_PART = 11;
 
-  private static final int GAUGE_LENGTH = 100;
-
   private final Minecraft client;
-  private final Rect rect;
   private final Gauge gauge = new Gauge(0, RANDOM_PART + 10 * 3);
   private int boostTick = 0;
 
   public BoostComponent(Minecraft client) {
     this.client = client;
-    Font font = client.font;
-    this.rect =
-        new Rect(
-            new Point(0, (int) (font.lineHeight * 1.2)),
-            new Dimension(GAUGE_LENGTH, font.lineHeight));
   }
 
   /** ロケット状態 */
@@ -88,15 +80,16 @@ public class BoostComponent implements HudComponent {
     int boostLevel = Axis.getFireworkRocketLevel(player);
     tickBoost(boostLevel);
     Renderer renderer = new Renderer(guiGraphics);
-    renderer.accept(
-        new RectTask(
-            new Rect(
-                rect.point(),
-                new Dimension(
-                    gauge.getPosition(this.boostTick, rect.dimension().width()),
-                    rect.dimension().height())),
-            this.getBoostState().color,
-            ShapeStyle.FILL));
-    renderer.accept(new RectTask(rect, Color.WHITE, ShapeStyle.STROKE));
+    Dimension fontMetrics = Fonts.singleChar(client.font);
+    Point topLeft = renderer.center().with(fontMetrics.width(), fontMetrics.height() + 2);
+    Rect frame = new Rect(topLeft, fontMetrics.mulW(10));
+    Rect inner =
+        new Rect(
+            topLeft,
+            new Dimension(
+                gauge.getPosition(this.boostTick, frame.dimension().width()),
+                frame.dimension().height()));
+    renderer.accept(new RectTask(inner, this.getBoostState().color, ShapeStyle.FILL));
+    renderer.accept(new RectTask(frame, Color.WHITE, ShapeStyle.STROKE));
   }
 }
