@@ -5,12 +5,14 @@ import net.dolpen.mod.toys.Main;
 import net.dolpen.mod.toys.core.stereotype.ModModule;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @SuppressWarnings("unused")
 public class Hud implements ModModule {
 
   private final List<HudComponent> components;
+
+  @SuppressWarnings("FieldCanBeLocal")
   private final String NAME = "hud";
 
   public Hud(SpeedComponent speedComponent, PitchComponent pitchComponent) {
@@ -21,7 +23,7 @@ public class Hud implements ModModule {
   public void init() {
     HudElementRegistry.attachElementAfter(
         VanillaHudElements.CROSSHAIR,
-        ResourceLocation.fromNamespaceAndPath(Main.NAMESPACE, NAME),
+        Identifier.fromNamespaceAndPath(Main.NAMESPACE, NAME),
         (guiGraphics, deltaTracker) ->
             components.forEach(component -> component.accept(guiGraphics, deltaTracker)));
   }

@@ -23,14 +23,14 @@ public record SpeedComponent(Minecraft client) implements HudComponent {
       return;
     }
     Point offset =
-            new Point(
-                    TextRenderer.offsetUnderScore(client.font, LENGTH),
-                    (int) (client.font.lineHeight * 0.2));
+        new Point(
+            TextRenderer.offsetUnderScore(client.font, LENGTH),
+            (int) (client.font.lineHeight * 0.2));
     TextRenderer.renderRightAlignment(
-            guiGraphics,
-            offset.join(TextRenderer.center(guiGraphics)),
-            Axis.getSpeed(player),
-            client.font,
-            Color.WHITE);
+        guiGraphics,
+        offset.join(TextRenderer.center(guiGraphics)),
+        Axis.getSpeed(player),
+        client.font,
+        Color.WHITE);
   }
 }
