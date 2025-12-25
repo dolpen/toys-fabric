@@ -29,7 +29,7 @@ public record SpeedComponent(Minecraft client) implements HudComponent {
     TextRenderer.renderRightAlignment(
         guiGraphics,
         offset.join(TextRenderer.center(guiGraphics)),
-        String.format("%3.2f m/s", Axis.getSpeed(player, deltaTracker)),
+        String.format("%2.1f", Axis.getSpeed(player, deltaTracker)),
         client.font,
         Color.WHITE);
   }
