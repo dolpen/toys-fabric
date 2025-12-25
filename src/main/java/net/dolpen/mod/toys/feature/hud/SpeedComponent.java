@@ -1,8 +1,13 @@
 package net.dolpen.mod.toys.feature.hud;
 
 import net.dolpen.mod.toys.bridge.data.Axis;
-import net.dolpen.mod.toys.bridge.render.TextRenderer;
-import net.dolpen.mod.toys.model.geometry.Point;
+import net.dolpen.mod.toys.bridge.render.Fonts;
+import net.dolpen.mod.toys.bridge.render.Renderer;
+import net.dolpen.mod.toys.feature.hud.task.HorizontalAlignment;
+import net.dolpen.mod.toys.feature.hud.task.StringTask;
+import net.dolpen.mod.toys.feature.hud.task.VerticalAlignment;
+import net.dolpen.mod.toys.model.geometry.Dimension;
+import net.dolpen.mod.toys.model.geometry.Rect;
 import net.dolpen.mod.toys.model.render.Color;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -22,15 +27,16 @@ public record SpeedComponent(Minecraft client) implements HudComponent {
     if (!Axis.isFlying(player)) {
       return;
     }
-    Point offset =
-        new Point(
-            TextRenderer.offsetUnderScore(client.font, LENGTH),
-            (int) (client.font.lineHeight * 0.2));
-    TextRenderer.renderRightAlignment(
-        guiGraphics,
-        offset.join(TextRenderer.center(guiGraphics)),
-        Axis.getSpeed(player),
-        client.font,
-        Color.WHITE);
+
+    Dimension fontMetrics = Fonts.singleChar(client.font);
+    Renderer renderer = new Renderer(guiGraphics);
+    renderer.accept(
+        new StringTask(
+            String.format("%2.1f", Axis.getSpeed(player, deltaTracker)),
+            client.font,
+            Color.WHITE,
+            new Rect(renderer.center().with(fontMetrics.width(), 1), fontMetrics.mulW(LENGTH)),
+            HorizontalAlignment.RIGHT,
+            VerticalAlignment.CENTER));
   }
 }

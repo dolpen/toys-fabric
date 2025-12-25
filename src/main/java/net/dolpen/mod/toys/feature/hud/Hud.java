@@ -15,8 +15,9 @@ public class Hud implements ModModule {
   @SuppressWarnings("FieldCanBeLocal")
   private final String NAME = "hud";
 
-  public Hud(SpeedComponent speedComponent, PitchComponent pitchComponent) {
-    components = List.of(speedComponent, pitchComponent);
+  public Hud(
+      SpeedComponent speedComponent, PitchComponent pitchComponent, BoostComponent boostComponent) {
+    components = List.of(speedComponent, pitchComponent, boostComponent);
   }
 
   @Override

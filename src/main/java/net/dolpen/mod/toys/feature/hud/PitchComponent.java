@@ -1,8 +1,13 @@
 package net.dolpen.mod.toys.feature.hud;
 
 import net.dolpen.mod.toys.bridge.data.Axis;
-import net.dolpen.mod.toys.bridge.render.TextRenderer;
-import net.dolpen.mod.toys.model.geometry.Point;
+import net.dolpen.mod.toys.bridge.render.Fonts;
+import net.dolpen.mod.toys.bridge.render.Renderer;
+import net.dolpen.mod.toys.feature.hud.task.HorizontalAlignment;
+import net.dolpen.mod.toys.feature.hud.task.StringTask;
+import net.dolpen.mod.toys.feature.hud.task.VerticalAlignment;
+import net.dolpen.mod.toys.model.geometry.Dimension;
+import net.dolpen.mod.toys.model.geometry.Rect;
 import net.dolpen.mod.toys.model.render.Color;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -10,6 +15,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 
 public record PitchComponent(Minecraft client) implements HudComponent {
+
   private static final int LENGTH = 5;
 
   @Override
@@ -22,13 +28,17 @@ public record PitchComponent(Minecraft client) implements HudComponent {
       return;
     }
     int pitch = Axis.getPitch(player);
-    Point offset =
-        new Point(TextRenderer.offsetUnderScore(client.font, LENGTH), -client.font.lineHeight);
-    TextRenderer.renderRightAlignment(
-        guiGraphics,
-        offset.join(TextRenderer.center(guiGraphics)),
-        String.format("%3d", pitch),
-        client.font,
-        pitch >= 0 ? Color.GREEN : Color.RED);
+    Dimension fontMetrics = Fonts.singleChar(client.font);
+    Renderer renderer = new Renderer(guiGraphics);
+    renderer.accept(
+        new StringTask(
+            String.format("%3d", pitch),
+            client.font,
+            pitch >= 0 ? Color.GREEN : Color.RED,
+            new Rect(
+                renderer.center().with(fontMetrics.width(), -fontMetrics.height() - 1),
+                fontMetrics.mulW(LENGTH)),
+            HorizontalAlignment.RIGHT,
+            VerticalAlignment.CENTER));
   }
 }
