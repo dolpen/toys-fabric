@@ -1,5 +1,5 @@
 [versions]
-minecraft = "26.1"
+minecraft = "26.1.1"
 # https://mvnrepository.com/artifact/net.fabricmc/fabric-loader
 fabricLoader = "0.18.5"
 # https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/
