@@ -6,14 +6,14 @@ import net.dolpen.mod.toys.model.geometry.Point;
 import net.dolpen.mod.toys.model.render.Color;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 
 public record PitchComponent(Minecraft client) implements HudComponent {
   private static final int LENGTH = 5;
 
   @Override
-  public void accept(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+  public void accept(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
     LocalPlayer player = client.player;
     if (player == null) {
       return;
