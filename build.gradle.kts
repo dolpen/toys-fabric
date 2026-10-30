@@ -1,10 +1,9 @@
 /**
  * gradle.properties から特定キーの文字列を解決する
  */
-fun propertyAsString(name: String): String {
-    return if (project.hasProperty(name)) project.properties[name] as String
-    else "__${name}__"
-}
+fun propertyAsString(name: String): String = providers
+  .gradleProperty(name)
+  .getOrElse("__${name}__")
 
 /**
  * org.gradle.api.provider.Provider<String> から取り出すだけ
@@ -66,19 +65,6 @@ base {
     archivesName = modId
     group = modGroup
     version = createVersionString()
-}
-
-/**
- * mod 開発環境構築設定
- */
-loom {
-    mixin { // Experimental
-        // refmap のファイル名は modId 使う
-        defaultRefmapName = "${modId}.refmap.json"
-    }
-    // アクセス修飾子を超えてminecraftの内部にアクセスするリフレクション黒魔術用設定ファイル
-    // https://www.fabricmc.net/wiki/ja:tutorial:accesswideners
-    accessWidenerPath = file("src/main/resources/${modId}.accesswidener")
 }
 
 /**
