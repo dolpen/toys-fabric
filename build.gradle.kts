@@ -88,12 +88,15 @@ spotless {
 
 tasks {
     register("title"){
-        println("Toys $modVersion for Minecraft $mcVersion")
+        description = "generates release title"
+      println("Toys $modVersion for Minecraft $mcVersion")
     }
     register("tag"){
+      description = "generates release tag"
         println("mc$mcVersion-$modVersion")
     }
     register("echoVersion") {
+      description = "shows jar information"
         println(createVersionString())
         println("$modName - $modGroup:$modId:$modVersion")
     }
