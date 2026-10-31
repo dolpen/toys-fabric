@@ -31,10 +31,6 @@
   },
   "custom": {
   },
-  "accessWidener": "${id}.accesswidener",
-  "mixins": [
-    "${id}.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": "${mc_version}"
